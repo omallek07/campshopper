@@ -4,6 +4,7 @@ const Address = require('./address')
 const Category = require('./category')
 const Review = require('./review')
 const Order = require('./order')
+const LineItem = require('./lineitems')
 
 // Model Associations
 
@@ -20,6 +21,10 @@ Product.hasMany(Review)
 Category.hasMany(Product)
 Product.belongsTo(Category)
 
+Order.hasMany(LineItem)
+LineItem.belongsTo(Order)
+LineItem.hasOne(Product)
+
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -33,5 +38,6 @@ module.exports = {
   Address,
   Category,
   Review,
-  Order
+  Order,
+  LineItem
 }

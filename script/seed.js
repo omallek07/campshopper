@@ -16,7 +16,8 @@ const {
   Category,
   Product,
   Review,
-  Order
+  Order,
+  LineItem
 } = require('../server/db/models')
 
 // async function that holds dummy data and creates instances
@@ -52,53 +53,9 @@ async function seed () {
     { // 5
       firstName: 'Pam',
       lastName: 'Harper',
+      isAdmin: true,
       email: 'harper@email.com',
       password: '456'
-    }
-  ]
-
-  const products = [
-    {
-      name: '1 Person Tent',
-      description: 'This tent is designed for only one person',
-      stockQuantity: 12,
-      currentPrice: 145,
-      categoryId: 1
-    },
-    {
-      name: '2 Person Tent',
-      description: 'This tent is designed for one to two people',
-      stockQuantity: 16,
-      currentPrice: 1200,
-      categoryId: 1
-    },
-    {
-      name: 'Sleeping Bag',
-      description: 'This is a very nice sleeping bag',
-      stockQuantity: 42,
-      currentPrice: 300,
-      categoryId: 5
-    },
-    {
-      name: 'Hiking Boots',
-      description: 'These boots are built to last',
-      stockQuantity: 21,
-      currentPrice: 405,
-      categoryId: 2
-    },
-    {
-      name: 'Flashlight',
-      description: `Don't forget to bring a flashlight!`,
-      stockQuantity: 76,
-      currentPrice: 40,
-      categoryId: 6
-    },
-    {
-      name: 'Hiking Pants',
-      description: `Weatherproof pants`,
-      stockQuantity: 13,
-      currentPrice: 1000,
-      categoryId: 4
     }
   ]
 
@@ -120,6 +77,96 @@ async function seed () {
     },
     { //6
       name: 'Miscellaneous'
+    }
+  ]
+
+  const products = [
+    { // 1
+      name: '1 Person Tent',
+      description: 'This tent is designed for only one person',
+      stockQuantity: 12,
+      currentPrice: 145,
+      categoryId: 1
+    },
+    { // 2
+      name: '2 Person Tent',
+      description: 'This tent is designed for one to two people',
+      stockQuantity: 16,
+      currentPrice: 1200,
+      categoryId: 1
+    },
+    { // 3
+      name: 'Sleeping Bag',
+      description: 'This is a very nice sleeping bag',
+      stockQuantity: 42,
+      currentPrice: 300,
+      categoryId: 5
+    },
+    { // 4
+      name: 'Hiking Boots',
+      description: 'These boots are built to last',
+      stockQuantity: 21,
+      currentPrice: 405,
+      categoryId: 2
+    },
+    { // 5
+      name: 'Flashlight',
+      description: `Don't forget to bring a flashlight!`,
+      stockQuantity: 76,
+      currentPrice: 40,
+      categoryId: 6
+    },
+    { // 6
+      name: 'Hiking Pants',
+      description: `Weatherproof pants`,
+      stockQuantity: 13,
+      currentPrice: 1000,
+      categoryId: 4
+    }
+  ]
+
+  const reviews = [
+    {
+      comment: 'This tent was nice, but I wish I got a larger size.',
+      rating: 4,
+      userId: 1,
+      productId: 1
+    },
+    {
+      comment: `My feet hurt after wearing these! Maybe I should have broken them in before the trip...I still want to complain though.`,
+      rating: 2,
+      userId: 2,
+      productId: 4
+    },
+    {
+      comment: `What a life saver! It was dark out and I used this to find my way through the woods.`,
+      rating: 4,
+      userId: 1,
+      productId: 5
+    },
+    {
+      comment: `I loved these boots! So glad I broke them in before my trip.`,
+      rating: 5,
+      userId: 3,
+      productId: 4
+    },
+    {
+      comment: `I slept like a baby with this thing.  Very warm, highly recommend!`,
+      rating: 5,
+      userId: 4,
+      productId: 3
+    },
+    {
+      comment: `Overrated, could barely fit me and my camping bag.`,
+      rating: 1,
+      userId: 5,
+      productId: 2
+    },
+    {
+      comment: `Perfect fit for myself.  Kept me warm and dry all trip!`,
+      rating: 5,
+      userId: 1,
+      productId: 1
     }
   ]
 
@@ -189,21 +236,60 @@ async function seed () {
     },
   ]
 
+  const lineItems = [
+    {
+      orderQuantity: 2,
+      orderId: 1,
+      productId: 1
+    },
+    {
+      orderQuantity: 1,
+      orderId: 1,
+      productId: 2
+    },
+    {
+      orderQuantity: 1,
+      orderId: 2,
+      productId: 3
+    },
+    {
+      orderQuantity: 3,
+      orderId: 4,
+      productId: 3
+    },
+    {
+      orderQuantity: 1,
+      orderId: 5,
+      productId: 5
+    },
+    {
+      orderQuantity: 1,
+      orderId: 5,
+      productId: 4
+    },
+  ]
+
   // Model.creates through each object in array
-  await Promise.all(users.map(user => User.create(user)))
+  await User.bulkCreate(users)
   console.log(`seeded ${users.length} users`)
 
-  await Promise.all(products.map(product => Product.create(product)))
-  console.log(`seeded ${products.length} products`)
-
-  await Promise.all(addresses.map(address => Address.create(address)))
-  console.log(`seeded ${addresses.length} addresses`)
-
-  await Promise.all(categories.map(category => Category.create(category)))
+  await Category.bulkCreate(categories)
   console.log(`seeded ${categories.length} categories`)
 
-  await Promise.all(orders.map(order => Order.create(order)))
+  await Product.bulkCreate(products)
+  console.log(`seeded ${products.length} products`)
+
+  await Order.bulkCreate(orders)
   console.log(`seeded ${orders.length} orders`)
+
+  await Address.bulkCreate(addresses)
+  console.log(`seeded ${addresses.length} addresses`)
+
+  await Review.bulkCreate(reviews)
+  console.log(`seeded ${reviews.length} reviews`)
+
+  await LineItem.bulkCreate(lineItems)
+  console.log(`seeded ${lineItems.length} line items`)
 
 }
 
