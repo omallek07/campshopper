@@ -36,6 +36,24 @@ async function seed () {
       lastName: 'Smith',
       email: 'murphy@email.com',
       password: '321'
+    },
+    { // 3
+      firstName: 'Bill',
+      lastName: 'Lee',
+      email: 'lee@email.com',
+      password: '456'
+    },
+    { // 4
+      firstName: 'Tony',
+      lastName: 'Baha',
+      email: 'baha@email.com',
+      password: '012'
+    },
+    { // 5
+      firstName: 'Pam',
+      lastName: 'Harper',
+      email: 'harper@email.com',
+      password: '456'
     }
   ]
 
@@ -44,19 +62,43 @@ async function seed () {
       name: '1 Person Tent',
       description: 'This tent is designed for only one person',
       stockQuantity: 12,
-      currentPrice: 145
+      currentPrice: 145,
+      categoryId: 1
     },
     {
       name: '2 Person Tent',
       description: 'This tent is designed for one to two people',
       stockQuantity: 16,
-      currentPrice: 1200
+      currentPrice: 1200,
+      categoryId: 1
     },
     {
       name: 'Sleeping Bag',
       description: 'This is a very nice sleeping bag',
       stockQuantity: 42,
-      currentPrice: 300
+      currentPrice: 300,
+      categoryId: 5
+    },
+    {
+      name: 'Hiking Boots',
+      description: 'These boots are built to last',
+      stockQuantity: 21,
+      currentPrice: 405,
+      categoryId: 2
+    },
+    {
+      name: 'Flashlight',
+      description: `Don't forget to bring a flashlight!`,
+      stockQuantity: 76,
+      currentPrice: 40,
+      categoryId: 6
+    },
+    {
+      name: 'Hiking Pants',
+      description: `Weatherproof pants`,
+      stockQuantity: 13,
+      currentPrice: 1000,
+      categoryId: 4
     }
   ]
 
@@ -82,25 +124,38 @@ async function seed () {
   ]
 
   const addresses = [
-    {
-      streetOne: '222 W merchandise mart plaza',
+    { // 1
+      streetOne: '222 W Merchandise Mart Plaza',
       streetTwo: '#1212',
-      city: 'chicago',
+      city: 'Chicago',
       state: 'IL',
       zip: '60654'
     },
-    {
+    { // 2
       streetOne: '420 E Ohio St',
-      streetTwo: 'apt 22D',
-      city: 'chicago',
+      streetTwo: 'Apt 22D',
+      city: 'Chicago',
       state: 'IL',
       zip: '60611'
     },
-    {
+    { // 3
       streetOne: '123 6th St.',
       city: 'Melbourne',
       state: 'FL',
       zip: '32904'
+    },
+    { // 4
+      streetOne: '3326 N. Clark St.',
+      streetTwo: 'Apt 3F',
+      city: 'Chicago',
+      state: 'IL',
+      zip: '60657'
+    },
+    { // 5
+      streetOne: '1430 Ambridge Road',
+      city: 'Centerville',
+      state: 'OH',
+      zip: '45459'
     }
   ]
 
@@ -129,8 +184,8 @@ async function seed () {
     {
       status: 'Completed',
       purchaseTime: Date.now(),
-      userId: 4,
-      addressId: 4
+      userId: 5,
+      addressId: 5
     },
   ]
 
