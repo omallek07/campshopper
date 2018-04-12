@@ -7,10 +7,23 @@ const Order = db.define('order', {
     values: ['In-Cart', 'Processing', 'Cancelled', 'Completed']
   },
   purchaseTime: {
-    type: Sequelize.DATE,
+    type: Sequelize.DATE
+  },
+  completedOrderTime: {
+    type: Sequelize.DATE
   },
   sid: {
     type: Sequelize.STRING
+  }
+})
+
+
+Order.afterUpdate((orderInstance) => {
+  if (orderInstance.status === 'Processing') {
+    orderInstance.purchaseTime = Date.now()
+  }
+  if (orderInstance.status === 'Completed') {
+    orderInstance.completedOrderTime = Date.now()
   }
 })
 

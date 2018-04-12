@@ -5,6 +5,7 @@ const Category = require('./category')
 const Review = require('./review')
 const Order = require('./order')
 const LineItem = require('./lineitems')
+const Brand = require('./brand')
 
 // Model Associations
 
@@ -14,16 +15,18 @@ User.hasMany(Review)
 User.hasMany(Order)
 Order.belongsTo(User)
 
-Address.belongsTo(User)
+Address.hasMany(Order)
 
 Product.hasMany(Review)
 
-Category.hasMany(Product)
-Product.belongsTo(Category)
+Product.belongsTo(Brand)
+Brand.hasMany(Product)
+
+Product.belongsToMany(Category, {through: 'productCategories'})
 
 Order.hasMany(LineItem)
 LineItem.belongsTo(Order)
-LineItem.hasOne(Product)
+LineItem.belongsTo(Product)
 
 
 /**
@@ -39,5 +42,6 @@ module.exports = {
   Category,
   Review,
   Order,
-  LineItem
+  LineItem,
+  Brand
 }

@@ -18,10 +18,10 @@ const LineItem = db.define('lineItem', {
 
 
 // Set current product price to line item current order price
-LineItem.beforeCreate((instance) => {
+LineItem.beforeCreate(instance => {
   return Product.findOne({
     where: {
-      lineitemId: instance.id
+      id: instance.productId
     }
   })
   .then(foundItem => {

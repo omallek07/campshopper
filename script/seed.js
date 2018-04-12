@@ -14,6 +14,7 @@ const {
   User,
   Address,
   Category,
+  Brand,
   Product,
   Review,
   Order,
@@ -80,93 +81,148 @@ async function seed () {
     }
   ]
 
+  const brands = [
+    { // 1
+      name: 'Eddie Bauer'
+    },
+    { // 2
+      name: 'Perfect North'
+    },
+    { // 3
+      name: 'Osprey'
+    }
+  ]
+
   const products = [
     { // 1
       name: '1 Person Tent',
       description: 'This tent is designed for only one person',
       stockQuantity: 12,
       currentPrice: 145,
-      categoryId: 1
+      brandId: 1
     },
     { // 2
       name: '2 Person Tent',
       description: 'This tent is designed for one to two people',
       stockQuantity: 16,
       currentPrice: 1200,
-      categoryId: 1
+      brandId: 2
     },
     { // 3
       name: 'Sleeping Bag',
       description: 'This is a very nice sleeping bag',
       stockQuantity: 42,
       currentPrice: 300,
-      categoryId: 5
+      brandId: 3
     },
     { // 4
       name: 'Hiking Boots',
       description: 'These boots are built to last',
       stockQuantity: 21,
       currentPrice: 405,
-      categoryId: 2
+      brandId: 1
     },
     { // 5
       name: 'Flashlight',
       description: `Don't forget to bring a flashlight!`,
       stockQuantity: 76,
       currentPrice: 40,
-      categoryId: 6
+      brandId: 2
     },
     { // 6
       name: 'Hiking Pants',
       description: `Weatherproof pants`,
       stockQuantity: 13,
       currentPrice: 1000,
-      categoryId: 4
+      brandId: 3
     }
   ]
 
   const reviews = [
-    {
+    { // 1
       comment: 'This tent was nice, but I wish I got a larger size.',
       rating: 4,
       userId: 1,
       productId: 1
     },
-    {
+    { // 2
       comment: `My feet hurt after wearing these! Maybe I should have broken them in before the trip...I still want to complain though.`,
       rating: 2,
       userId: 2,
       productId: 4
     },
-    {
+    { // 3
       comment: `What a life saver! It was dark out and I used this to find my way through the woods.`,
       rating: 4,
       userId: 1,
       productId: 5
     },
-    {
+    { // 4
       comment: `I loved these boots! So glad I broke them in before my trip.`,
       rating: 5,
       userId: 3,
       productId: 4
     },
-    {
+    { // 5
       comment: `I slept like a baby with this thing.  Very warm, highly recommend!`,
       rating: 5,
       userId: 4,
       productId: 3
     },
-    {
+    { // 6
       comment: `Overrated, could barely fit me and my camping bag.`,
       rating: 1,
       userId: 5,
       productId: 2
     },
-    {
+    { // 7
       comment: `Perfect fit for myself.  Kept me warm and dry all trip!`,
       rating: 5,
       userId: 1,
       productId: 1
+    }
+  ]
+
+  const productCategories = [
+    {
+      productId: 1,
+      categoryId: 1
+    },
+    {
+      productId: 2,
+      categoryId: 1
+    },
+    {
+      productId: 3,
+      categoryId: 2
+    },
+    {
+      productId: 4,
+      categoryId: 4
+    },
+    {
+      productId: 5,
+      categoryId: 6
+    },
+    {
+      productId: 6,
+      categoryId: 4
+    },
+    {
+      productId: 3,
+      categoryId: 4
+    },
+    {
+      productId: 4,
+      categoryId: 5
+    },
+    {
+      productId: 6,
+      categoryId: 2
+    },
+    {
+      productId: 2,
+      categoryId: 3
     }
   ]
 
@@ -207,31 +263,32 @@ async function seed () {
   ]
 
   const orders = [
-    {
+    { // 1
       status: 'In-Cart',
       userId: 1,
       addressId: 1
     },
-    {
+    { // 2
       status: 'Processing',
-      purchaseTime: Date.now(),
       userId: 2,
+      purchaseTime: Date.now(),
       addressId: 2
     },
-    {
+    { // 3
       status: 'Cancelled',
       userId: 3,
       addressId: 3
     },
-    {
+    { // 4
       status: 'In-Cart',
       userId: 4,
       addressId: 4
     },
-    {
+    { // 5
       status: 'Completed',
-      purchaseTime: Date.now(),
       userId: 5,
+      purchaseTime: '10-23-41',
+      completedOrderTime: Date.now(),
       addressId: 5
     },
   ]
@@ -270,25 +327,33 @@ async function seed () {
   ]
 
   // Model.creates through each object in array
+  // Need to learn about individual hooks for bulkCreate
+
   await User.bulkCreate(users)
   console.log(`seeded ${users.length} users`)
 
   await Category.bulkCreate(categories)
   console.log(`seeded ${categories.length} categories`)
 
+  await Brand.bulkCreate(brands)
+  console.log(`seeded ${brands.length} brands`)
+
   await Product.bulkCreate(products)
   console.log(`seeded ${products.length} products`)
-
-  await Order.bulkCreate(orders)
-  console.log(`seeded ${orders.length} orders`)
 
   await Address.bulkCreate(addresses)
   console.log(`seeded ${addresses.length} addresses`)
 
+  await Promise.all(orders.map(order => Order.create(order)))
+  console.log(`seeded ${orders.length} orders`)
+
   await Review.bulkCreate(reviews)
   console.log(`seeded ${reviews.length} reviews`)
 
-  await LineItem.bulkCreate(lineItems)
+  await Promise.all(productCategories.map(productCategory => db.models.productCategories.create(productCategory)))
+  console.log(`seeded ${productCategories.length} product categories`)
+
+  await Promise.all(lineItems.map(lineItem => LineItem.create(lineItem)))
   console.log(`seeded ${lineItems.length} line items`)
 
 }
