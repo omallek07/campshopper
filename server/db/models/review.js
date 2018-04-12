@@ -19,6 +19,7 @@ const Review = db.define('review', {
   }
 })
 
+// Hook used to update associated product review stats after new review is created
 Review.afterCreate(review => {
   Product.findOne({
     where: {
@@ -26,8 +27,15 @@ Review.afterCreate(review => {
     }
   })
   .then(foundProduct => {
-    foundProduct.numberOfRatings++;
-    foundProduct.averageRating += review.rating;
+    const newAverageRating = foundProduct.averageRating += review.Rating;
+    const newNumberOfRatings = ++foundProduct.numberOfRatings
+    return foundProduct.update({
+      numberOfRatings: newNumberOfRatings,
+      averageRating: newAverageRating
+    })
+  })
+  .then(() => {
+    console.log(`product reviews updated successfully`)
   })
   .catch(err => console.log(err))
 })
