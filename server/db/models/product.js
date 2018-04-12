@@ -39,7 +39,7 @@ const Product = db.define('product', {
     type: Sequelize.VIRTUAL,
     get () {
       if (this.numberOfRatings === 0) {
-        return 0
+        return 0;
       } else {
         return this.ratingSum / this.numberOfRatings
       }
