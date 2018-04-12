@@ -6,7 +6,7 @@ const Review = db.define('review', {
   comment: {
     type: Sequelize.TEXT,
     allowNull: true,
-    validae: {
+    validate: {
       len: [2, 600]
     }
   },
@@ -20,22 +20,19 @@ const Review = db.define('review', {
 })
 
 // Hook used to update associated product review stats after new review is created
-Review.afterCreate(review => {
+Review.beforeCreate(review => {
   Product.findOne({
     where: {
       id: review.productId
     }
   })
   .then(foundProduct => {
-    const newAverageRating = foundProduct.averageRating += review.Rating;
+    const newRatingSum = foundProduct.ratingSum += review.rating;
     const newNumberOfRatings = ++foundProduct.numberOfRatings
     return foundProduct.update({
       numberOfRatings: newNumberOfRatings,
-      averageRating: newAverageRating
+      ratingSum: newRatingSum
     })
-  })
-  .then(() => {
-    console.log(`product reviews updated successfully`)
   })
   .catch(err => console.log(err))
 })

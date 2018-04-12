@@ -18,6 +18,7 @@ Order.belongsTo(User)
 Address.hasMany(Order)
 
 Product.hasMany(Review)
+Review.belongsTo(Product)
 
 Product.belongsTo(Brand)
 Brand.hasMany(Product)
