@@ -9,6 +9,10 @@ const Product = db.define('product', {
   description: {
     type: Sequelize.TEXT
   },
+  photoUrl: {
+    type: Sequelize.STRING
+    //add default value
+  },
   stockQuantity: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
@@ -16,15 +20,29 @@ const Product = db.define('product', {
       min: 0
     }
   },
-  photoUrl: {
-    type: Sequelize.STRING
-    //add default value
-  },
   currentPrice: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: 0
+    }
+  },
+  numberOfRatings: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  ratingSum: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  averageRating: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      if (this.numberOfRatings === 0) {
+        return 0
+      } else {
+        return this.ratingSum / this.numberOfRatings
+      }
     }
   }
 })
