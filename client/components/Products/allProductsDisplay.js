@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import connect from 'react-redux'
+import { connect } from 'react-redux'
 import productCard from './productCard'
 
-export class allProductsDisplay extends Component {
+class allProductsDisplay extends Component {
   constructor() {
     super()
   }
 
   render() {
-    
+    console.log(this.props)
     return (
       <div>
         {

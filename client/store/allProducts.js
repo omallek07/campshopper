@@ -9,7 +9,7 @@ const allProductsActionCreator = products => ({type: GET_ALL_PRODUCTS, products}
 /** THUNK CREATORS **/
 export const getAllProductsThunk = () =>
   dispatch =>
-    axios.get('/products')
+    axios.get('/api/products')
       .then(res =>
         dispatch(allProductsActionCreator(res.data)))
       .catch(err => console.log(err))
