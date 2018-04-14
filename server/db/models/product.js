@@ -27,6 +27,10 @@ const Product = db.define('product', {
       min: 0
     }
   },
+  isFeatured: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   numberOfRatings: {
     type: Sequelize.INTEGER,
     defaultValue: 0
