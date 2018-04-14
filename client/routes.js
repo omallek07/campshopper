@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, allProductsDisplay} from './components'
+import {Login, Signup, UserHome, AllProductsDisplay} from './components'
 import {me, getAllProductsThunk} from './store'
 
 /**
@@ -19,7 +19,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/allProducts" component={allProductsDisplay} />
+        <Route exact path="/allProducts" component={AllProductsDisplay} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/home" component={UserHome} />
@@ -52,7 +52,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
-      getAllProductsThunk()
+      dispatch(getAllProductsThunk())
     }
   }
 }

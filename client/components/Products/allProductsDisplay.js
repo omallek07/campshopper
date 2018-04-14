@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import productCard from './productCard'
+import ProductCard from './productCard'
 
-class allProductsDisplay extends Component {
+class AllProductsDisplay extends Component {
   constructor() {
     super()
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
+        <h1>Hello this where all products will be displayed</h1>
         {
-          this.props.allProducts.map(product => <productCard product={product} />
+          this.props.allProducts.map(product => <ProductCard key={product.id} product={product} />
         )}
       </div>
     )
@@ -25,4 +25,4 @@ const mapState = ({allProducts}) => ({allProducts});
 
 const mapDispatch = null;
 
-export default connect(mapState, mapDispatch)(allProductsDisplay)
+export default connect(mapState, mapDispatch)(AllProductsDisplay)
