@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, AllProductsDisplay, IndividualProductDisplay, LandingPage} from './components'
+import {Login, Signup, UserHome, AllProductsDisplay, SingleProductDisplay, LandingPage} from './components'
 import {me, getAllProductsThunk} from './store'
 
 /**
@@ -10,7 +10,10 @@ import {me, getAllProductsThunk} from './store'
  */
 class Routes extends Component {
   componentDidMount () {
-    this.props.loadInitialData()
+    this.props.loadUser()
+    if (this.props.products.length === 0) {
+      this.props.loadInitialData()
+    }
   }
 
   render () {
@@ -21,7 +24,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/products" component={AllProductsDisplay} />
-        <Route exact path="/products/:productId" component={IndividualProductDisplay} />
+        <Route exact path="/products/:productId" component={SingleProductDisplay} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/home" component={UserHome} />
@@ -46,14 +49,17 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
+    products: state.allProducts,
     isLoggedIn: !!state.user.id
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadUser () {
       dispatch(me())
+    },
+    loadInitialData () {
       dispatch(getAllProductsThunk())
     }
   }

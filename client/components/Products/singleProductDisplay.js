@@ -1,6 +1,6 @@
 import React from 'react'
 
-const IndividualProductDisplay = () => {
+const SingleProductDisplay = () => {
   return (
     <div>
       <h1>This will display all information about an individual product</h1>
@@ -8,4 +8,4 @@ const IndividualProductDisplay = () => {
   )
 }
 
-export default IndividualProductDisplay
+export default SingleProductDisplay
