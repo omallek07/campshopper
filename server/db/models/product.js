@@ -10,8 +10,8 @@ const Product = db.define('product', {
     type: Sequelize.TEXT
   },
   photoUrl: {
-    type: Sequelize.STRING
-    //add default value
+    type: Sequelize.STRING,
+    defaultValue: 'https://3hack.net/wp-content/uploads/2017/09/camping_equipment.jpg'
   },
   stockQuantity: {
     type: Sequelize.INTEGER,

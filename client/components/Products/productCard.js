@@ -5,6 +5,9 @@ const ProductCard = ({product}) => {
     <div>
       <h1>{product.name}</h1>
       <p>{product.description}</p>
+      <div>
+        <img style={{height: '100px'}} src={product.photoUrl} />
+      </div>
     </div>
   )
 }

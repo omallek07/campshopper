@@ -99,6 +99,7 @@ async function seed () {
       description: 'This tent is designed for only one person',
       stockQuantity: 12,
       currentPrice: 145,
+      photoUrl: 'https://content.backcountry.com/images/items/1200/CAS/CAS009T/OR.jpg',
       brandId: 1
     },
     { // 2
