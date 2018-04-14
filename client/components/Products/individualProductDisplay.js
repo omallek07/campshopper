@@ -1,6 +1,6 @@
 import React from 'react'
 
-const IndividualProductDisplay = (props) => {
+const IndividualProductDisplay = () => {
   return (
     <div>
       <h1>This will display all information about an individual product</h1>
