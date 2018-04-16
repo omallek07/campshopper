@@ -26,6 +26,5 @@ describe('Product Model', () => {
       expect(testProduct.stockQuantity).to.be.equal(0)
       expect(testProduct.isFeatured).to.be.equal(false)
     })
-
-  }) 
+  })
 })
