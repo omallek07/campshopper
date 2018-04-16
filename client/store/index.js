@@ -7,21 +7,27 @@ import user from './user'
 import allProducts from './allProducts'
 import throttle from 'lodash/throttle'
 
-// Check if state is saved in localStorage
-const persistedState = loadState();
+// configureStore ensures store is ready
+const configureStore = () => {
 
-const reducer = combineReducers({user, allProducts})
+  // Check if state is saved in localStorage
+  const persistedState = loadState();
 
-const middleware = composeWithDevTools(applyMiddleware(
-  thunkMiddleware,
-  createLogger({collapsed: true})
-))
-const store = createStore(reducer, persistedState, middleware)
+  const reducer = combineReducers({user, allProducts})
 
-store.subscribe(throttle(() => {
-  saveState(store.getState())
-}, 2000))
+  const middleware = composeWithDevTools(applyMiddleware(
+    thunkMiddleware,
+    createLogger({collapsed: true})
+  ))
+  const store = createStore(reducer, persistedState, middleware)
 
-export default store
+  store.subscribe(throttle(() => {
+    saveState(store.getState())
+  }, 2000))
+
+  return store;
+}
+
+export default configureStore
 export * from './user'
 export * from './allProducts'
