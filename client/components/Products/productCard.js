@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import AddToCartButton from './add-to-cart-button'
 
 const ProductCard = ({product}) => {
   return (
@@ -11,6 +12,7 @@ const ProductCard = ({product}) => {
       <div>
         <img style={{height: '100px'}} src={product.photoUrl} />
       </div>
+      <AddToCartButton />
     </div>
   )
 }
