@@ -3,9 +3,12 @@ import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { loadState, saveState } from '../localStorage'
+import throttle from 'lodash/throttle'
+
+// Reducer imports
 import user from './user'
 import allProducts from './allProducts'
-import throttle from 'lodash/throttle'
+import userCart from './userCart'
 
 // configureStore ensures store is ready
 const configureStore = () => {
@@ -13,7 +16,7 @@ const configureStore = () => {
   // Check if state is saved in localStorage
   const persistedState = loadState();
 
-  const reducer = combineReducers({user, allProducts})
+  const reducer = combineReducers({user, allProducts, userCart})
 
   const middleware = composeWithDevTools(applyMiddleware(
     thunkMiddleware,
@@ -31,3 +34,4 @@ const configureStore = () => {
 export default configureStore
 export * from './user'
 export * from './allProducts'
+export * from './userCart'

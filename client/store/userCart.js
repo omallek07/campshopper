@@ -7,11 +7,11 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const addToCartActionCreator = product => ({type: ADD_TO_CART, product})
 
 /** THUNK CREATORS **/
-export const cartPersistenceThunk = () =>
+export const cartPersistenceThunk = (product, sessionId) =>
   dispatch =>
-    axios.post('/api/products/')
-      .then(res =>
-        dispatch(addToCartActionCreator(res.data)))
+    axios.post(`/api/products/${sessionId}`)
+      .then(() =>
+        dispatch(addToCartActionCreator(product)))
       .catch(err => console.log(err))
 
 /** REDUCER **/
