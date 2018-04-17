@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import CartProductCard from './cart-product-card'
 
-const CartDisplay = (props) => {
+const CartDisplay = () => {
   return (
     <div>
       <h1>Cart Items will display here</h1>
