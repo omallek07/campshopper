@@ -12,7 +12,7 @@ const ProductCard = ({product}) => {
       <div>
         <img style={{height: '100px'}} src={product.photoUrl} />
       </div>
-      <AddToCartButton />
+      <AddToCartButton product={product} />
     </div>
   )
 }

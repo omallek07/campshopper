@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ProductCard from './productCard'
+import ProductCard from './product-card'
 
 class AllProductsDisplay extends Component {
   constructor() {
