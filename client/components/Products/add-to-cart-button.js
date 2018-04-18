@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { cartPersistenceThunk } from '../../store'
 
 class AddToCartButton extends Component {
   constructor(props) {
@@ -8,7 +9,8 @@ class AddToCartButton extends Component {
   }
 
   onClickHandler(product) {
-    console.log(product)
+    console.log('user', this.props.user)
+    this.cartPersistenceThunk(product)
   }
 
   render() {
@@ -23,8 +25,8 @@ class AddToCartButton extends Component {
 
 /* --------- CONTAINER ----------- */
 
-const mapState = null;
+const mapState = ({ user }) => ({ user });
 
-const mapDispatch = null
+const mapDispatch = { cartPersistenceThunk };
 
 export default connect(mapState, mapDispatch)(AddToCartButton)

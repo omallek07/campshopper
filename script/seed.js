@@ -330,7 +330,7 @@ async function seed () {
   // Model.creates through each object in array
   // Need to learn about individual hooks for bulkCreate
 
-  await User.bulkCreate(users)
+  await Promise.all(users.map(user => User.create(user)))
   console.log(`seeded ${users.length} users`)
 
   await Category.bulkCreate(categories)
