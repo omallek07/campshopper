@@ -9,8 +9,8 @@ class AddToCartButton extends Component {
   }
 
   onClickHandler(product) {
-    console.log('user', this.props.user)
-    this.cartPersistenceThunk(product)
+    const sessionId = this.props.user
+    this.cartPersistenceThunk(product, sessionId)
   }
 
   render() {

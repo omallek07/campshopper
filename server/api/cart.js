@@ -2,11 +2,11 @@ const router = require('express').Router()
 const { Cart } = require('../db/models')
 module.exports = router
 
-// Add product to user's cart
-router.get('/:userId', async (req, res, next) => {
+// When a user/guest accesses the site, a cart is created and attached to their session id
+router.post('/:sessionId', async (req, res, next) => {
   try {
-    // const allProducts = await Product.findAll()
-    // res.json(allProducts)
+    const cart = await Cart.create({sessionId: req.params.sessionId})
+    res.json(cart)
   } catch (err) {
     next(err)
   }

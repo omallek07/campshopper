@@ -18,7 +18,8 @@ const {
   Product,
   Review,
   Order,
-  LineItem
+  LineItem,
+  Cart
 } = require('../server/db/models')
 
 // async function that holds dummy data and creates instances
@@ -265,65 +266,88 @@ async function seed () {
 
   const orders = [
     { // 1
-      status: 'In-Cart',
+      status: 'Processing',
       userId: 1,
+      orderSubmittedTime: Date.now(),
       addressId: 1
     },
     { // 2
       status: 'Processing',
       userId: 2,
-      purchaseTime: Date.now(),
+      orderSubmittedTime: Date.now(),
       addressId: 2
     },
     { // 3
       status: 'Cancelled',
       userId: 3,
+      orderSubmittedTime: '1-12-82',
+      orderCancelledTime: Date.now(),
       addressId: 3
     },
     { // 4
-      status: 'In-Cart',
+      status: 'Completed',
       userId: 4,
+      orderSubmittedTime: '12-12-91',
+      orderCompletedTime: Date.now(),
       addressId: 4
     },
     { // 5
       status: 'Completed',
       userId: 5,
-      purchaseTime: '10-23-41',
-      completedOrderTime: Date.now(),
+      orderSubmittedTime: '10-23-41',
+      orderCompletedTime: Date.now(),
       addressId: 5
     },
+  ]
+
+  const carts = [
+    {
+      sessionId: '1da2faggsgd'
+    },
+    {
+      sessionId: 'rewff42324324'
+    },
+    {
+      sessionId: 'rqfgr4524rff'
+    },
+    {
+      sessionId: 'rqefef3243fef'
+    },
+    {
+      sessionId: 'sadc3edwdqwd'
+    }
   ]
 
   const lineItems = [
     {
       orderQuantity: 2,
-      orderId: 1,
-      productId: 1
+      productId: 1,
+      cartId: 1
     },
     {
       orderQuantity: 1,
-      orderId: 1,
-      productId: 2
+      productId: 2,
+      cartId: 1
     },
     {
       orderQuantity: 1,
-      orderId: 2,
-      productId: 3
+      productId: 3,
+      cartId: 2
     },
     {
-      orderQuantity: 3,
-      orderId: 4,
-      productId: 3
+      orderQuantity: 4,
+      productId: 3,
+      cartId: 3
     },
     {
-      orderQuantity: 1,
-      orderId: 5,
-      productId: 5
+      orderQuantity: 4,
+      productId: 5,
+      cartId: 4
     },
     {
-      orderQuantity: 1,
-      orderId: 5,
-      productId: 4
+      orderQuantity: 2,
+      productId: 4,
+      cartId: 5
     },
   ]
 
@@ -353,6 +377,9 @@ async function seed () {
 
   await Promise.all(productCategories.map(productCategory => db.models.productCategories.create(productCategory)))
   console.log(`seeded ${productCategories.length} product categories`)
+
+  await Promise.all(carts.map(cart => Cart.create(cart)))
+  console.log(`seeded ${carts.length} carts`)
 
   await Promise.all(lineItems.map(lineItem => LineItem.create(lineItem)))
   console.log(`seeded ${lineItems.length} line items`)

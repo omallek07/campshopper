@@ -4,26 +4,28 @@ const db = require('../db')
 const Order = db.define('order', {
   status: {
     type: Sequelize.ENUM,
-    values: ['In-Cart', 'Processing', 'Cancelled', 'Completed']
+    values: ['Processing', 'Cancelled', 'Completed']
   },
-  purchaseTime: {
+  orderSubmittedTime: {
     type: Sequelize.DATE
   },
-  completedOrderTime: {
+  orderCompletedTime: {
     type: Sequelize.DATE
   },
-  sid: {
-    type: Sequelize.STRING
+  orderCancelledTime: {
+    type: Sequelize.DATE
   }
 })
 
-
-Order.afterUpdate((orderInstance) => {
+Order.afterUpdate(orderInstance => {
   if (orderInstance.status === 'Processing') {
-    orderInstance.purchaseTime = Date.now()
+    orderInstance.orderSubmittedTime = Date.now()
   }
   if (orderInstance.status === 'Completed') {
-    orderInstance.completedOrderTime = Date.now()
+    orderInstance.orderCompletedTime = Date.now()
+  }
+  if (orderInstance.status === 'Cancelled') {
+    orderInstance.orderCancelledTime = Date.now()
   }
 })
 
